@@ -1,0 +1,21 @@
+{
+	"datos_personales":{
+		"nombre":"Benjamín",
+		"apellidos":"Rubin Ortiz",
+		"email":{
+			"empresa":"benjamin.tomas.rubin.ortiz@alu.ceacfp.es",
+			"personal":"benjaminrubinortiz@gmail.com"
+		}
+	},
+	"experiencia profesional":"trabajé como agente inmobiliario para My dreams",
+	"formación":{
+				"centro":"colegio escuelas pias valencia",
+				"titulación":"bachiller",
+				"inicio":"septiembre de 2024",
+				"final":"junio de 2026"
+				},
+	"otras cosas":{
+	"idiomas":["ingles", "español"],
+	"hobbies":["tenis de mesa", "lectura"]
+	}
+}
