@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<currriculum>
+	<datos_personales>
+		<nombre>Benjamin</nombre>
+		<apellidos>Rubin Ortiz</apellidos>
+		<email>benjaminrubinortiz@gmail.com<email>
+	</datos_personales>
+	<experiencia>
+		<empresa>My dreams</empresa>
+		<cargo>agente inmobiliario</cargo>
+		<inicio>2 de julio de 2026</inicio>
+		<final>actualmente con horas reducidas</final>
+	</experiencia>
+	<formacion>
+		<centro>colegio escuelas pias valencia</centro>
+		<titulación>bachillerato</titulación>
+		<inicio>septiembre de 2024</inicio>
+		<final>junio de 2026</final>
+	</formacion>
+	<otras_cosas>
+		<idiomas>ingles y español</idiomas>
+		<hobbies>tenis de mesa y lectura</hobbies>
+	</otras_cosas>
+</currriculum>
