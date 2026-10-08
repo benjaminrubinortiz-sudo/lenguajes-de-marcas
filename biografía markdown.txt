@@ -1,0 +1,19 @@
+# Benjamín
+
+Me llamo Benjamín, tengo 18 años y soy de Chile. Actualmente estudio el ciclo formativo de Administración de Sistemas Informáticos en Red (ASIR) en CEAC FP, una formación que elegí después de terminar el bachillerato porque siempre me ha llamado la atención cómo funcionan por dentro los ordenadores y las redes. Me considero una persona curiosa y constante, con muchas ganas de aprender, y mi objetivo es llegar a trabajar como administrador de sistemas.
+
+## Formación
+
+Tras completar el bachillerato, decidí orientar mi futuro hacia la informática. En ASIR estoy aprendiendo a administrar sistemas operativos, configurar redes y automatizar tareas mediante scripts. Disfruto especialmente practicando con ejercicios de scripting, porque me permiten ver cómo una idea sencilla se convierte en una herramienta útil. Además, intento investigar y probar cosas por mi cuenta para ampliar lo que veo en clase.
+
+## Experiencia
+
+Antes de empezar la formación profesional trabajé en la inmobiliaria My Dreams. Allí aprendí a tratar con clientes de forma cercana y profesional, a organizar mi tiempo y a trabajar en equipo. Esa experiencia me dio una buena base en comunicación y responsabilidad, que ahora combino con mis conocimientos técnicos.
+
+## Hobbies
+
+En mi tiempo libre me gusta escuchar música mientras estudio o practico con el ordenador y jugar videojuegos con mis amigos. También disfruto de las series y películas de ciencia ficción y del fútbol, tanto jugándolo como viéndolo. Cuando puedo, me gusta montar pequeños laboratorios de redes con máquinas virtuales para practicar lo que voy aprendiendo.
+
+## Objetivos
+
+A corto plazo quiero terminar el ciclo con buenos resultados. Después me gustaría hacer prácticas en una empresa del sector tecnológico y, con el tiempo, trabajar como administrador de sistemas y especializarme en áreas como la ciberseguridad.
