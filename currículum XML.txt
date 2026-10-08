@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<currriculum>
-	<datos_personales>
-		<nombre>Benjamin</nombre>
-		<apellidos>Rubin Ortiz</apellidos>
-		<email>benjaminrubinortiz@gmail.com<email>
-	</datos_personales>
-	<experiencia>
-		<empresa>My dreams</empresa>
-		<cargo>agente inmobiliario</cargo>
-		<inicio>2 de julio de 2026</inicio>
-		<final>actualmente con horas reducidas</final>
-	</experiencia>
-	<formacion>
-		<centro>colegio escuelas pias valencia</centro>
-		<titulación>bachillerato</titulación>
-		<inicio>septiembre de 2024</inicio>
-		<final>junio de 2026</final>
-	</formacion>
-	<otras_cosas>
-		<idiomas>ingles y español</idiomas>
-		<hobbies>tenis de mesa y lectura</hobbies>
-	</otras_cosas>
-</currriculum>
+<Benja.RO:curriculum xmlns:Benja.RO="http://www.benja.ro/curriculum">
+	<Benja.RO:datos_personales>
+		<Benja.RO:nombre>Benjamin</Benja.RO:nombre>
+		<Benja.RO:apellidos>Rubin Ortiz</Benja.RO:apellidos>
+		<Benja.RO:email>benjaminrubinortiz@gmail.com</Benja.RO:email>
+	</Benja.RO:datos_personales>
+	<Benja.RO:experiencia>
+		<Benja.RO:empresa>My Dreams</Benja.RO:empresa>
+		<Benja.RO:cargo>agente inmobiliario</Benja.RO:cargo>
+		<Benja.RO:inicio>2 de julio de 2026</Benja.RO:inicio>
+		<Benja.RO:final>actualmente con horas reducidas</Benja.RO:final>
+	</Benja.RO:experiencia>
+	<Benja.RO:formacion>
+		<Benja.RO:centro>Colegio Escuelas Pías Valencia</Benja.RO:centro>
+		<Benja.RO:titulacion>bachillerato</Benja.RO:titulacion>
+		<Benja.RO:inicio>septiembre de 2024</Benja.RO:inicio>
+		<Benja.RO:final>junio de 2026</Benja.RO:final>
+	</Benja.RO:formacion>
+	<Benja.RO:otras_cosas>
+		<Benja.RO:idiomas>inglés y español</Benja.RO:idiomas>
+		<Benja.RO:hobbies>tenis de mesa y lectura</Benja.RO:hobbies>
+	</Benja.RO:otras_cosas>
+</Benja.RO:curriculum>
