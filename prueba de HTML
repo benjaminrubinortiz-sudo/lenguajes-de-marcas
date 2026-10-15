@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <!--aña-->
+    </head>
+    <body>
+        <!--aidfjsjf-->
+        <title>www.BTRO.es</title>
+        <meta charset="utf-8">
+        <header>
+            <h1>Benjamín Tomás Rubín Ortiz</h1>
+            <h2>estudiante de ASIR</h2>
+            <nav>
+                <a href="#inicio">inicio</a>
+                <a href="#destacado">destacado</a>
+                <a href="#sobremi">sobre mi</a>
+                <a href="#contacto">contacto</a>
+            </nav>
+        </header>
+        <main>
+            parte principal de la web
+            <section id="inicio">
+                <h3>inicio</h3>
+                <p>soy Benjamín Tomás Rubín Ortiz, soy un estudiante de ASIR</p>
+                <img src="html/img/Designer.png">
+                <img src="html/img/Moodboard de identidad FLINT.png">
+            </section>
+            <section id="destacado">
+                <h3>destacado</h3>
+            </section>
+            <section id="sobremi">
+                <h3>sobremi</h3>
+            </section>
+            <section id="contacto">
+                <h3>contacto</h3>
+            </section>
+        </main>
+        <footer>
+            pie de página
+        </footer>
+    </body>
+</html>
