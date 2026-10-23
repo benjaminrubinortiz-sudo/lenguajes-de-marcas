@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Curriculum</title>
+    <meta charset="utf-8">
+    <style>
+          @font-face {
+          font-family: "Nasalization";
+          src: url("Nasalization Rg.otf");
+        }
+          @font-face {
+            font-family: Ghastly Panic;
+            src: url(Ghastly Panic.ttf);
+          }
+
+      body{background:grey;font-family:'Times New Roman', Times, serif;}
+      main{width:210mm;height:297mm;background:white;margin:auto;
+      display:flex;}
+      h1, h2, h3, h4, h5, h6{font-family: Nasalization;}
+      #izquierda{flex:1;background:rgb(0, 82, 130);}
+      img{width:100%;}
+      #derecha{flex:3;background:white;padding:20mm}
+      #izquierda{padding:10mm;box-sizing:border-box;display:flex;flex-direction:column;
+      gap:5mm;}
+      #izquierda a{color:white;text-decoration:none;}
+      #derecha #líneahorizontal{background:rgba(0, 82, 130, 0.658);height:30px;margin:0 -20mm;}
+    </style>
+  </head>
+  <body>
+    <main>
+      <section id="izquierda">
+        <img src="img/Jocarsa.png">
+        <a href="mailto:benjaminrubinortiz@gmail.com">benjaminrubinortiz@gmail.com</a>
+        <a href="tel:+34 620 89 17 18">677 95 66 05</a>
+        <a href="https://github.com/benjaminrubinortiz">https://github.com/Benjamin</a>
+        <a href="https://instragram.com/benja_rubin_">https://instragram.com/benja_rubin_</a>
+      </section>
+      <section id="derecha">
+        <h1>Benjamín Rubín Ortiz</h1>
+        <div id="líneahorizontal"></div>
+        <h2>estudiante de ASIR y deportista</h2>
+        <p>Me llamo Benjamín, tengo 18 años, soy de Chile con nacionalidad española. Actualmente estudio el ciclo formativo de Administración de Sistemas Informáticos en Red (ASIR) en CEAC FP, una formación que elegí después de terminar el bachillerato porque siempre me ha llamado la atención cómo funcionan por dentro los ordenadores y las redes. Me considero una persona curiosa y constante, con muchas ganas de aprender, y mi objetivo es llegar a trabajar como administrador de sistemas.
+        </p>
+        <div id="experiencia">
+          <h3>experiencia laboral</h3>
+          <article>
+            <h4>nombre de la empresa</h4>
+            <time>tiempo</time>
+            <h5>de qué has trabajado PUESTO</h5>
+            <p>más cosas sobre tu puesto</p>
+          </article>
+        </div>
+        <div id="hobbies">
+          <h3>hobbies</h3>
+        </div> 
+        <div id="idiomas">
+          <h3>idiomas</h3>
+        </div>
+        <div id="conducción">
+          <h3>conducción</h3>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
