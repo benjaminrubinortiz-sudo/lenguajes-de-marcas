@@ -1,0 +1,51 @@
+<doctype html>
+    <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+            <header>
+                <nav>
+                    //creamos los botones y les ponesmos sos nombres y los mensajes que saldrán de forma visual
+                    <button id="inicio">incio</button>
+                    <button id="blog">blog</button>
+                    <button id="otras cosas">otras cosas</button>
+                    <button id="contacto">contacto</button>
+                </nav>
+            </header>
+            <main>
+                //llamamos a cada uno de los botones y les damos contenido 
+                <section misección="inicio">
+                    <h3>inicio</h3>
+                    <p>otras cosas del inicio</p>
+                </section>        
+                <section misección="blog">
+                    <h3>blog</h3>
+                    <p>otras cosas del blog</p>
+                </section>  
+                <section misección="otras cosas">
+                    <h3>otras cosas</h3>
+                    <p>cosas aparte</p>
+                </section>  
+                <section misección="contacto">
+                    <h3>contacto</h3>
+                    <p>otras cosas del contacto</p>
+                </section>  
+            </main>
+            <footer>
+                (c) 2026 Benjamín Rubín Ortiz
+            </footer>
+            <script>
+                let botones = document.querySelectorAll("button")
+                console.log(botones)
+                botones.forEach(function(botón){
+                    botón.onclick = function(){
+                      let identificador = botón.getAttribute("id")
+                      let secciones = document.querySelectorAll("section")
+                secciones.forEach(function(section){
+                    section.style.display ="none"
+                )}
+                    document.querySelector("section[miseccion='"+identificador+"']").style.display = "block"
+            </script>
+        </body>
+    </html>
