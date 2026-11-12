@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chuletas de HTML y JavaScript</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF2F9; --panel:#FFFFFF; --ink:#16213A; --muted:#5B6781; --line:#D7DEEC;
+  --code:#14213D; --accent:#D6336C; --on-accent:#fff;
+  --t-text:#E6ECF8; --t-tag:#FF8FB5; --t-str:#9BE28F; --t-kw:#7DB7FF; --t-com:#7C8AA5; --t-num:#FFC66D;
+  --head:'Bricolage Grotesque',system-ui,sans-serif; --mono:'JetBrains Mono',Consolas,monospace;
+}
+:root[data-theme="dark"]{ --bg:#0E1424; --panel:#17203A; --ink:#E8EDF9; --muted:#9AA7C4; --line:#2A3556; --code:#0A101F; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0E1424; --panel:#17203A; --ink:#E8EDF9; --muted:#9AA7C4; --line:#2A3556; --code:#0A101F; }
+}
+body[data-tab="js"]{ --accent:#F2B705; --on-accent:#16213D; }
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:150px}
+body{background:var(--bg);color:var(--ink);font-family:var(--head);font-weight:500;line-height:1.5}
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:2px solid var(--line);padding:14px 24px}
+.top{max-width:1300px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+h1{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin-right:auto}
+h1 span{background:var(--accent);color:var(--on-accent);padding:0 .35em;border-radius:6px}
+.tabs{display:flex;background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.tabs button{font:700 1rem var(--head);border:0;background:none;color:var(--muted);padding:8px 20px;border-radius:8px;cursor:pointer}
+.tabs button.on{background:var(--accent);color:var(--on-accent)}
+.tabs small{opacity:.8;font-weight:500;margin-left:4px}
+#q{font:500 1rem var(--head);padding:10px 14px;border-radius:10px;border:2px solid var(--line);background:var(--panel);color:var(--ink);width:240px}
+#q:focus,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.theme{font-size:1.1rem;border:2px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer}
+.wrap{max-width:1300px;margin:auto;padding:24px;display:grid;grid-template-columns:210px 1fr;gap:28px}
+nav{position:sticky;top:110px;align-self:start;display:flex;flex-direction:column;gap:4px}
+nav a{color:var(--muted);text-decoration:none;font-weight:700;padding:8px 12px;border-left:4px solid var(--line);border-radius:0 8px 8px 0}
+nav a:hover{color:var(--ink);border-left-color:var(--accent);background:var(--panel)}
+section{margin-bottom:42px}
+section h2{font-size:1.5rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+section h2::before{content:"";width:14px;height:28px;background:var(--accent);border-radius:4px}
+.sub{color:var(--muted);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card:hover{border-color:var(--accent)}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px}
+.ch h3{font-size:1.05rem;font-weight:700}
+.copy{font:700 .85rem var(--head);border:2px solid var(--accent);background:none;color:var(--ink);border-radius:8px;padding:5px 12px;cursor:pointer;white-space:nowrap}
+.copy:hover,.copy.ok{background:var(--accent);color:var(--on-accent)}
+pre{background:var(--code);color:var(--t-text);font:400 .84rem/1.6 var(--mono);padding:14px;overflow-x:auto;cursor:copy;flex:1;tab-size:2}
+.k-tag{color:var(--t-tag)}.k-str{color:var(--t-str)}.k-kw{color:var(--t-kw)}.k-com{color:var(--t-com);font-style:italic}.k-num{color:var(--t-num)}
+.desc{padding:12px 14px;font-size:.92rem;color:var(--muted);border-top:2px solid var(--line)}
+.desc b{color:var(--ink)}
+.empty{display:none;text-align:center;padding:60px 0;color:var(--muted);font-size:1.1rem}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);background:var(--ink);color:var(--bg);padding:10px 22px;border-radius:30px;font-weight:700;transition:transform .25s;z-index:50}
+#toast.show{transform:translate(-50%,0)}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr;padding:16px}
+  nav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  nav a{white-space:nowrap;border-left:0;border-bottom:4px solid var(--line);border-radius:8px 8px 0 0}
+  .grid{grid-template-columns:1fr}
+  #q{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body data-tab="html">
+<header>
+  <div class="top">
+    <h1>Chuletas de <span id="ttl">HTML</span></h1>
+    <div class="tabs" role="tablist">
+      <button id="tHtml" class="on" role="tab">HTML <small id="cHtml"></small></button>
+      <button id="tJs" role="tab">JavaScript <small id="cJs"></small></button>
+    </div>
+    <input id="q" type="search" placeholder="Buscar: map, form, fetch..." aria-label="Buscar">
+    <button class="theme" id="theme" title="Cambiar tema" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+<div class="wrap">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<div id="toast">Código copiado</div>
+
+<script>
+/* ===== CONTENIDO: [título, qué hace, código] ===== */
+const DATA = {
+html: [
+ ["Estructura", "Lo básico para empezar cualquier página.", [
+  ["Plantilla base", "Esqueleto mínimo de un documento HTML5. <b>lang</b> ayuda a buscadores y lectores de pantalla.",
+`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi página</title>
+</head>
+<body>
+  <h1>Hola mundo</h1>
+</body>
+</html>`],
+  ["Enlazar CSS y JS", "Conecta tus archivos externos. <b>defer</b> espera a que el HTML cargue antes de ejecutar el script.",
+`<link rel="stylesheet" href="estilos.css">
+<script src="app.js" defer><\/script>`],
+  ["Comentarios", "Notas que el navegador ignora. Útiles para organizar el código.",
+`<!-- Esto no se ve en la página -->`],
+  ["Atributos globales", "Funcionan en casi cualquier etiqueta: identificar, clasificar, guardar datos u ocultar.",
+`<div id="caja" class="tarjeta destacada"
+     data-usuario="42" title="Ayuda" hidden>
+  Contenido
+</div>`],
+ ]],
+ ["Texto", "Títulos, párrafos y formato.", [
+  ["Títulos y párrafos", "De <b>h1</b> (el más importante, solo uno por página) a <b>h6</b>.",
+`<h1>Título principal</h1>
+<h2>Subtítulo</h2>
+<p>Un párrafo de texto.</p>`],
+  ["Formato de texto", "Da énfasis y significado: negrita, cursiva, código, resaltado y texto pequeño.",
+`<strong>Importante</strong>
+<em>Énfasis</em>
+<code>console.log()</code>
+<mark>Resaltado</mark>
+<small>Letra pequeña</small>
+<del>Tachado</del>`],
+  ["Saltos y separadores", "<b>br</b> corta la línea; <b>hr</b> dibuja una línea horizontal.",
+`Línea uno<br>Línea dos
+<hr>`],
+  ["Cita", "Bloque de cita con su fuente.",
+`<blockquote cite="https://ejemplo.com">
+  <p>Texto citado.</p>
+</blockquote>`],
+ ]],
+ ["Enlaces e imágenes", "Navegar y mostrar imágenes.", [
+  ["Enlace externo", "<b>target=\"_blank\"</b> abre pestaña nueva; <b>rel</b> la hace segura.",
+`<a href="https://ejemplo.com" target="_blank"
+   rel="noopener noreferrer">Visitar</a>`],
+  ["Enlaces internos", "Salta a una sección de la misma página usando su <b>id</b>, o abre correo y teléfono.",
+`<a href="#contacto">Ir a contacto</a>
+<section id="contacto">...</section>
+<a href="mailto:hola@ejemplo.com">Escríbeme</a>
+<a href="tel:+34600000000">Llamar</a>`],
+  ["Imagen", "<b>alt</b> describe la imagen (accesibilidad). <b>loading=\"lazy\"</b> la carga al hacer scroll.",
+`<img src="foto.jpg" alt="Descripción"
+     width="400" loading="lazy">`],
+  ["Imagen con pie", "Agrupa una imagen con su texto explicativo.",
+`<figure>
+  <img src="foto.jpg" alt="Playa">
+  <figcaption>La playa de Gandia</figcaption>
+</figure>`],
+ ]],
+ ["Listas y tablas", "Organizar información.", [
+  ["Listas", "<b>ul</b> con viñetas, <b>ol</b> numerada. Cada elemento va en <b>li</b>.",
+`<ul>
+  <li>Manzana</li>
+  <li>Pera</li>
+</ul>
+<ol>
+  <li>Paso 1</li>
+  <li>Paso 2</li>
+</ol>`],
+  ["Tabla completa", "Con cabecera, cuerpo y pie. <b>colspan</b> une columnas.",
+`<table>
+  <thead>
+    <tr><th>Nombre</th><th>Edad</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ana</td><td>20</td></tr>
+    <tr><td>Luis</td><td>22</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan="2">Total: 2</td></tr>
+  </tfoot>
+</table>`],
+ ]],
+ ["Formularios", "Recoger datos del usuario.", [
+  ["Formulario básico", "<b>label for</b> se enlaza con el <b>id</b> del input: al pulsar el texto se activa el campo.",
+`<form action="/enviar" method="post">
+  <label for="nombre">Nombre</label>
+  <input type="text" id="nombre" name="nombre">
+  <button type="submit">Enviar</button>
+</form>`],
+  ["Tipos de input", "Cada tipo trae su propio teclado y validación en el navegador.",
+`<input type="email" placeholder="correo@ejemplo.com">
+<input type="password">
+<input type="number" min="0" max="100">
+<input type="date">
+<input type="color">
+<input type="range">
+<input type="file">`],
+  ["Select y textarea", "Lista desplegable y caja de texto de varias líneas.",
+`<select name="pais">
+  <option value="es">España</option>
+  <option value="cl" selected>Chile</option>
+</select>
+<textarea rows="4" cols="30"></textarea>`],
+  ["Checkbox y radio", "Checkbox: varias opciones. Radio: solo una (mismo <b>name</b>).",
+`<input type="checkbox" id="acepto" name="acepto">
+<label for="acepto">Acepto</label>
+
+<input type="radio" name="talla" value="s"> S
+<input type="radio" name="talla" value="m"> M`],
+  ["Validación", "El navegador valida sin JavaScript: campo obligatorio, longitud y patrón.",
+`<input type="text" required minlength="3"
+       maxlength="20" pattern="[A-Za-z]+">`],
+ ]],
+ ["Semántica y multimedia", "Estructura con significado, vídeo y audio.", [
+  ["Estructura de página", "Etiquetas con significado: mejor para SEO y accesibilidad que muchos <b>div</b>.",
+`<header>Logo y menú</header>
+<nav>Enlaces</nav>
+<main>
+  <article>Contenido</article>
+  <aside>Lateral</aside>
+</main>
+<footer>Pie de página</footer>`],
+  ["Desplegable", "Contenido que se abre y se cierra sin JavaScript.",
+`<details>
+  <summary>Ver más</summary>
+  <p>Texto oculto.</p>
+</details>`],
+  ["Vídeo y audio", "Reproductores nativos con controles.",
+`<video src="video.mp4" controls width="400"></video>
+<audio src="audio.mp3" controls></audio>`],
+  ["Insertar YouTube", "Incrusta contenido de otra web con <b>iframe</b>.",
+`<iframe width="560" height="315"
+  src="https://www.youtube.com/embed/ID_VIDEO"
+  allowfullscreen></iframe>`],
+ ]],
+ ["Cabecera y SEO", "Datos dentro de head.", [
+  ["Meta básicas", "Descripción para Google, icono de pestaña y color del navegador móvil.",
+`<meta name="description" content="Resumen de la página">
+<link rel="icon" href="favicon.ico">
+<meta name="theme-color" content="#16213A">`],
+  ["Open Graph", "Controla cómo se ve el enlace al compartirlo en redes.",
+`<meta property="og:title" content="Mi página">
+<meta property="og:description" content="Resumen">
+<meta property="og:image" content="portada.jpg">`],
+ ]],
+],
+js: [
+ ["Básicos", "Variables, tipos y consola.", [
+  ["Variables", "<b>const</b> no se reasigna; <b>let</b> sí. Evita <b>var</b>.",
+`const nombre = "Benja";
+let edad = 18;
+edad = 19;`],
+  ["Tipos de datos", "<b>typeof</b> te dice de qué tipo es un valor.",
+`typeof "hola"     // "string"
+typeof 42         // "number"
+typeof true       // "boolean"
+typeof [1, 2]     // "object"
+typeof undefined  // "undefined"`],
+  ["Plantillas de texto", "Mete variables dentro de un texto con comillas invertidas y <b>\${}</b>.",
+`const msg = \`Hola \${nombre}, tienes \${edad} años\`;`],
+  ["Operadores", "Comparar con <b>===</b> (estricto). <b>&&</b> y, <b>||</b> o, <b>??</b> valor por defecto.",
+`5 === "5"        // false
+5 == "5"         // true (evítalo)
+a && b           // y
+a || b           // o
+x ?? "defecto"   // si x es null/undefined
+let n = 0; n++; n += 5;`],
+  ["Consola", "Muestra información para depurar en las herramientas del navegador (F12).",
+`console.log("Hola", variable);
+console.table([{a: 1}, {a: 2}]);
+console.error("Algo falló");`],
+ ]],
+ ["Control de flujo", "Decisiones y repeticiones.", [
+  ["if / else", "Ejecuta código según una condición.",
+`if (edad >= 18) {
+  console.log("Mayor de edad");
+} else if (edad >= 16) {
+  console.log("Casi");
+} else {
+  console.log("Menor");
+}`],
+  ["Ternario", "Un if en una sola línea, ideal para asignar valores.",
+`const estado = edad >= 18 ? "adulto" : "menor";`],
+  ["switch", "Elige entre muchos casos. No olvides <b>break</b>.",
+`switch (dia) {
+  case "lunes":
+    console.log("Empieza la semana");
+    break;
+  case "sabado":
+  case "domingo":
+    console.log("Finde");
+    break;
+  default:
+    console.log("Día normal");
+}`],
+  ["Bucle for", "Repite un número conocido de veces.",
+`for (let i = 0; i < 5; i++) {
+  console.log(i);
+}`],
+  ["for...of y while", "<b>for...of</b> recorre los valores de un array; <b>while</b> repite mientras se cumpla algo.",
+`for (const fruta of frutas) {
+  console.log(fruta);
+}
+
+let n = 0;
+while (n < 3) { n++; }`],
+ ]],
+ ["Funciones", "Reutilizar código.", [
+  ["Función clásica", "Se puede llamar incluso antes de declararla (hoisting).",
+`function sumar(a, b) {
+  return a + b;
+}
+sumar(2, 3); // 5`],
+  ["Función flecha", "Forma corta, muy usada con arrays y eventos.",
+`const doble = (n) => n * 2;
+const saludar = nombre => \`Hola \${nombre}\`;`],
+  ["Parámetros por defecto", "Si no se pasa el argumento, usa el valor indicado.",
+`function saludar(nombre = "amigo") {
+  return "Hola " + nombre;
+}`],
+  ["Callback", "Pasar una función como argumento para que se ejecute después.",
+`function procesar(datos, cuandoAcabe) {
+  cuandoAcabe(datos.length);
+}
+procesar([1, 2, 3], n => console.log(n));`],
+ ]],
+ ["Arrays", "Listas de valores y sus métodos más útiles.", [
+  ["Básico de arrays", "Crear, leer, añadir y quitar elementos.",
+`const frutas = ["manzana", "pera"];
+frutas[0];            // "manzana"
+frutas.length;        // 2
+frutas.push("uva");   // añade al final
+frutas.pop();         // quita el último
+frutas.unshift("kiwi"); // añade al inicio
+frutas.shift();       // quita el primero`],
+  ["map, filter, reduce", "<b>map</b> transforma, <b>filter</b> selecciona, <b>reduce</b> acumula en un solo valor.",
+`const nums = [1, 2, 3, 4];
+nums.map(n => n * 2);          // [2,4,6,8]
+nums.filter(n => n % 2 === 0); // [2,4]
+nums.reduce((acc, n) => acc + n, 0); // 10`],
+  ["Buscar en arrays", "Comprobar o encontrar elementos.",
+`nums.find(n => n > 2);    // 3 (el primero)
+nums.findIndex(n => n > 2); // 2
+nums.includes(3);         // true
+nums.some(n => n > 3);    // true (alguno)
+nums.every(n => n > 0);   // true (todos)`],
+  ["Ordenar y recorrer", "<b>sort</b> con función para ordenar números correctamente.",
+`nums.sort((a, b) => a - b); // ascendente
+nums.reverse();
+nums.forEach(n => console.log(n));
+nums.slice(1, 3);   // copia parte
+nums.join(", ");    // "1, 2, 3"`],
+  ["Spread y desestructurar", "Copiar/unir arrays y sacar valores en variables.",
+`const todos = [...frutas, ...verduras];
+const [primero, segundo] = frutas;`],
+ ]],
+ ["Objetos y JSON", "Agrupar datos con nombre.", [
+  ["Objetos", "Pares clave-valor. Se accede con punto o corchetes.",
+`const user = { nombre: "Ana", edad: 20 };
+user.nombre;        // "Ana"
+user["edad"];       // 20
+user.ciudad = "Valencia";
+delete user.edad;`],
+  ["Desestructurar y recorrer", "Extrae propiedades y lista claves, valores o ambos.",
+`const { nombre, ciudad } = user;
+Object.keys(user);
+Object.values(user);
+Object.entries(user);
+const copia = { ...user, edad: 21 };`],
+  ["JSON", "Convertir objetos a texto y al revés (para guardar o enviar datos).",
+`const texto = JSON.stringify(user);
+const objeto = JSON.parse(texto);`],
+  ["Clases", "Plantilla para crear objetos con datos y métodos.",
+`class Persona {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+  saludar() {
+    return \`Hola, soy \${this.nombre}\`;
+  }
+}
+const p = new Persona("Ana");`],
+ ]],
+ ["Texto, números y fechas", "Métodos de String, Math y Date.", [
+  ["Métodos de String", "Manipular texto: cambiar, buscar y cortar.",
+`const t = "Hola Mundo";
+t.length;            // 10
+t.toUpperCase();
+t.toLowerCase();
+t.includes("Mundo"); // true
+t.replace("Hola", "Adiós");
+t.split(" ");        // ["Hola","Mundo"]
+t.trim();
+t.slice(0, 4);       // "Hola"`],
+  ["Math y conversión", "Redondear, aleatorios y pasar texto a número.",
+`Math.round(4.6);  // 5
+Math.floor(4.9);  // 4
+Math.max(1, 5, 3);
+Number("42");
+parseInt("42px");
+parseFloat("3.14");`],
+  ["Número aleatorio", "Entero entre min y max (ambos incluidos).",
+`const aleatorio = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;`],
+  ["Fechas", "Fecha actual y formato legible.",
+`const ahora = new Date();
+ahora.getFullYear();
+ahora.getMonth() + 1; // los meses empiezan en 0
+ahora.toLocaleDateString("es-ES");`],
+ ]],
+ ["DOM", "Leer y modificar la página.", [
+  ["Seleccionar elementos", "<b>querySelector</b> devuelve uno; <b>querySelectorAll</b> todos los que coincidan.",
+`const titulo = document.querySelector("h1");
+const caja = document.getElementById("caja");
+const items = document.querySelectorAll(".item");`],
+  ["Cambiar contenido", "<b>textContent</b> es texto seguro; <b>innerHTML</b> interpreta etiquetas.",
+`titulo.textContent = "Nuevo título";
+caja.innerHTML = "<b>Hola</b>";
+input.value;  // leer lo escrito en un input`],
+  ["Clases y estilos", "Añadir, quitar o alternar clases CSS.",
+`caja.classList.add("activo");
+caja.classList.remove("activo");
+caja.classList.toggle("oculto");
+caja.classList.contains("activo");
+caja.style.color = "red";`],
+  ["Atributos", "Leer y cambiar atributos HTML y data-*.",
+`img.setAttribute("src", "otra.jpg");
+img.getAttribute("alt");
+caja.dataset.usuario;  // lee data-usuario`],
+  ["Crear y eliminar", "Construye elementos nuevos y los inserta en la página.",
+`const li = document.createElement("li");
+li.textContent = "Nuevo";
+lista.append(li);      // al final
+lista.prepend(li);     // al principio
+li.remove();           // eliminar`],
+ ]],
+ ["Eventos", "Reaccionar a lo que hace el usuario.", [
+  ["Click", "Ejecuta una función cuando se pulsa el elemento.",
+`boton.addEventListener("click", () => {
+  alert("¡Pulsado!");
+});`],
+  ["Formulario", "<b>preventDefault</b> evita que la página se recargue al enviar.",
+`form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const dato = new FormData(form).get("nombre");
+  console.log(dato);
+});`],
+  ["Teclado e input", "Detecta teclas y cambios mientras se escribe.",
+`input.addEventListener("input", e => {
+  console.log(e.target.value);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter") enviar();
+});`],
+  ["Delegación de eventos", "Un solo listener para muchos elementos, incluso los creados después.",
+`lista.addEventListener("click", (e) => {
+  if (e.target.matches("li")) {
+    e.target.classList.toggle("hecho");
+  }
+});`],
+  ["Página cargada", "Espera a que el HTML esté listo antes de tocar el DOM.",
+`document.addEventListener("DOMContentLoaded", () => {
+  iniciar();
+});`],
+ ]],
+ ["Asincronía y datos", "Temporizadores, peticiones y almacenamiento.", [
+  ["Temporizadores", "<b>setTimeout</b> una vez; <b>setInterval</b> repetido. Se cancelan con <b>clear</b>.",
+`setTimeout(() => console.log("2 s después"), 2000);
+const id = setInterval(() => console.log("tic"), 1000);
+clearInterval(id);`],
+  ["fetch con async/await", "Pide datos a una API y los convierte de JSON a objeto.",
+`async function cargar() {
+  try {
+    const res = await fetch("https://api.ejemplo.com/datos");
+    if (!res.ok) throw new Error("Error " + res.status);
+    const datos = await res.json();
+    console.log(datos);
+  } catch (err) {
+    console.error(err.message);
+  }
+}`],
+  ["Enviar datos (POST)", "Manda un objeto JSON al servidor.",
+`fetch("/api/usuarios", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ nombre: "Ana" })
+});`],
+  ["Promise.all", "Espera a varias tareas a la vez.",
+`const [a, b] = await Promise.all([
+  fetch("/a").then(r => r.json()),
+  fetch("/b").then(r => r.json())
+]);`],
+  ["localStorage", "Guarda datos en el navegador aunque cierres la pestaña (solo texto).",
+`localStorage.setItem("tema", "oscuro");
+localStorage.getItem("tema");
+localStorage.removeItem("tema");
+// objetos: usa JSON
+localStorage.setItem("user", JSON.stringify(user));
+const u = JSON.parse(localStorage.getItem("user"));`],
+  ["try / catch", "Captura errores sin que el programa se detenga.",
+`try {
+  JSON.parse("no es json");
+} catch (error) {
+  console.error("Falló:", error.message);
+} finally {
+  console.log("Siempre se ejecuta");
+}`],
+ ]],
+]};
+
+/* ===== LÓGICA ===== */
+const $ = s => document.querySelector(s);
+let tab = "html";
+
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const RX = /(&lt;!--[\s\S]*?--&gt;|\/\/.*|\/\*[\s\S]*?\*\/)|("(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b(?:const|let|var|function|return|if|else|for|while|of|in|new|class|async|await|try|catch|finally|throw|switch|case|break|default|this|true|false|null|undefined|delete)\b)|(&lt;\/?[a-zA-Z0-9-]+)|(\b\d+(?:\.\d+)?\b)/g;
+const hl = code => esc(code).replace(RX, (m,c,s,k,t,n) =>
+  c ? `<span class="k-com">${m}</span>` : s ? `<span class="k-str">${m}</span>` :
+  k ? `<span class="k-kw">${m}</span>` : t ? `<span class="k-tag">${m}</span>` :
+  `<span class="k-num">${m}</span>`);
+
+const count = k => DATA[k].reduce((a, s) => a + s[2].length, 0);
+$("#cHtml").textContent = count("html");
+$("#cJs").textContent = count("js");
+
+function render() {
+  const q = $("#q").value.trim().toLowerCase();
+  const main = $("#main"), nav = $("#nav");
+  main.innerHTML = ""; nav.innerHTML = "";
+  let shown = 0;
+  DATA[tab].forEach(([name, sub, cards], i) => {
+    const list = cards.filter(([t, d, c]) => !q || (t + d + c).toLowerCase().includes(q));
+    if (!list.length) return;
+    shown += list.length;
+    const sec = document.createElement("section");
+    sec.id = "s" + i;
+    sec.innerHTML = `<h2>${name}</h2><p class="sub">${sub}</p><div class="grid"></div>`;
+    list.forEach(([t, d, c]) => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `<div class="ch"><h3>${t}</h3><button class="copy">Copiar</button></div>
+        <pre title="Haz clic para copiar"><code>${hl(c)}</code></pre>
+        <p class="desc"><b>Qué hace:</b> ${d}</p>`;
+      const btn = card.querySelector(".copy");
+      const go = () => copiar(c, btn);
+      btn.addEventListener("click", go);
+      card.querySelector("pre").addEventListener("click", go);
+      sec.querySelector(".grid").append(card);
+    });
+    main.append(sec);
+    nav.insertAdjacentHTML("beforeend", `<a href="#s${i}">${name}</a>`);
+  });
+  if (!shown) main.innerHTML = `<p class="empty" style="display:block">No hay resultados para “${esc(q)}”.</p>`;
+}
+
+function copiar(texto, btn) {
+  const ok = () => {
+    btn.textContent = "¡Copiado!"; btn.classList.add("ok");
+    const t = $("#toast"); t.classList.add("show");
+    setTimeout(() => { btn.textContent = "Copiar"; btn.classList.remove("ok"); t.classList.remove("show"); }, 1400);
+  };
+  if (navigator.clipboard && window.isSecureContext !== false) {
+    navigator.clipboard.writeText(texto).then(ok).catch(() => viejo(texto, ok));
+  } else viejo(texto, ok);
+}
+function viejo(texto, ok) {
+  const ta = document.createElement("textarea");
+  ta.value = texto; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.append(ta); ta.select();
+  try { document.execCommand("copy"); ok(); } catch (e) {}
+  ta.remove();
+}
+
+function setTab(t) {
+  tab = t;
+  document.body.dataset.tab = t;
+  $("#tHtml").classList.toggle("on", t === "html");
+  $("#tJs").classList.toggle("on", t === "js");
+  $("#ttl").textContent = t === "html" ? "HTML" : "JavaScript";
+  window.scrollTo(0, 0);
+  render();
+}
+$("#tHtml").onclick = () => setTab("html");
+$("#tJs").onclick = () => setTab("js");
+$("#q").addEventListener("input", render);
+
+$("#theme").onclick = () => {
+  const root = document.documentElement;
+  const dark = getComputedStyle(root).getPropertyValue("--bg").trim() === "#0E1424";
+  root.dataset.theme = dark ? "light" : "dark";
+};
+
+render();
+</script>
+</body>
+</html>
